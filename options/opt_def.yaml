@@ -1,0 +1,323 @@
+options:
+  opts_general:
+    num_threads:
+      args: [--num_threads]
+      kwargs:
+        help: Number of threads to use for pytorch training
+        type: int
+        default: 2
+    experiment_id:
+      args: [--experiment_id, --id]
+      kwargs:
+        help: Experiment id to uniquely identify each experiment
+        type: int
+    seed:
+      args: [--seed]
+      kwargs:
+        help: Random seed for reproducibility. Used for seeding pytorch and Gym environment
+        type: int
+        default: 0
+    comment:
+      args: [--comment, --cmt]
+      kwargs:
+        help: User specified comment.
+        default: ""
+
+  opts_environment:
+    env:
+      args: [--env]
+      kwargs:
+        help: Name of Gym environment.
+    vehicle_a_min:
+      args: [--vehicle_a_min]
+      kwargs:
+        help: Minimal acceleration of ego-vehicle in m/s^2.
+        type: float
+    vehicle_a_max:
+      args: [--vehicle_a_max]
+      kwargs:
+        help: Maximum acceleration of ego-vehicle in m/s^2.
+        type: float
+    env_dt:
+      args: [--env_dt]
+      kwargs:
+        help: Time interval of the environment. (Environment time is increased by this value every env.step())
+        type: float
+        default: 0.1
+    clip_a_dem:
+      args: [--clip_a_dem]
+      kwargs:
+        action: store_true
+        help: Clipping of a_dem according to constraints. (for unconstrained model)
+    sim_dt:
+      args: [--sim_dt]
+      kwargs:
+        help: Time interval of the underlaying pyhsics simulation. (env_dt has to be a multiple of sim_dt)
+        type: float
+        default: 0.1
+    env_stop_time:
+        args: [--env_stop_time]
+        kwargs:
+          help: Maximum duration of one episode in seconds
+          type: float
+          default: 3600
+    vehicle_model:
+      args: [--vehicle_model]
+      kwargs:
+        help: Which vehicle model to use. Either use a simple model or a more realistic one aquired from real data
+        choices: [Simples, RealData]
+        default: Simple
+    traffic_scenario:
+      args: [--traffic_scenario]
+      kwargs:
+        help: Which traffic scenario to use
+        choices: [SimpleSine, RampsAndHold, RampsSineAndHold]
+    observations:
+      args: [--observations]
+      kwargs:
+        nargs: +
+        help: Which obervations to use. Order matters
+    reward_function:
+      args: [--reward_function]
+      kwargs:
+        help: Which reward function shall be used
+        choices: [CACC Paper, CACC Paper continuous, custom]
+    reward_control_weight:
+      args: [--reward_control_weight]
+      kwargs:
+        help: Weight of cost for commanded acceleration
+        type: float
+    reward_control_jerk_weight:
+      args: [--reward_control_jerk_weight]
+      kwargs:
+        help: Weight of cost for change in commanded acceleration
+        type: float
+    desired_headway:
+      args: [--desired_headway]
+      kwargs:
+        help: Desired headway (time gap) to target vehicle in seconds
+        type: float
+    stop_n_go_distance:
+      args: [--stop_n_go_distance]
+      kwargs:
+        help: Desired distance to target vehicle when ego vehicle comes to a stop in meters
+        type: float
+        default: 3.2
+    stop_n_go_velocity:
+      args: [--stop_n_go_velocity]
+      kwargs:
+        help: At speeds below this threshold, desired distance to target vehicle is increased for stop & go scenario. Velocity in m/s.
+        type: float
+        default: 3.3333
+
+  opts_traffic_scenario:
+    traffic_scenario_vehicle_time_constant:
+      args: [--traffic_scenario_vehicle_time_constant]
+      kwargs:
+        help: Time constant of vehicle model in synthetic traffic scenario
+        type: float
+        default: 0.5
+    traffic_scenario_start_ideal:
+      args: [--traffic_scenario_start_ideal]
+      kwargs:
+        help: Start in ideal distance and with same velocity as target vehicle
+        action: store_true
+    RampsAndHold_random:
+      args: [--RampsAndHold_random]
+      kwargs:
+        nargs: +
+        help: Parameters for randomization of RampsAndHold Environment. [Random yes/no, T_min, T_max, Probability of randomizing period afer each period]
+        type: float
+    cut_in_cut_out_random:
+      args: [--cut_in_cut_out]
+      kwargs:
+        nargs: +
+        help: Parameters for random cut in and cut out. [Probability, Hw_min, Hw_max, v_change]
+        type: float
+
+  opts_training:
+    normalize_data:
+      args: [--normalize_data]
+      kwargs:
+        default: False
+        help: Whether to normalize (mean=0, std=1) the observations or not
+        type: bool
+    policy:
+      args: [--policy]
+      kwargs:
+        default: TD3
+        help: 'Policy, e.g: TD3, DDPG, OurDDPG'
+    max_timesteps:
+      args: [--max_timesteps]
+      kwargs:
+        help: Number of total training timesteps
+        type: int
+        default: 1_000_000
+    start_timesteps:
+      args: [--start_timesteps]
+      kwargs:
+        help: Number of inital random timestamps after which training is started
+        type: int
+        default: 10_000
+    eval_freq:
+      args: [--eval_freq]
+      kwargs:
+        help: Evaluate every N training timesteps
+        type: int
+        default: 5_000
+    evaluation_episodes:
+      args: [--evaluation_episodes]
+      kwargs:
+        help: Number of episodes of each evalution
+        type: int
+        default: 5
+    load_model:
+      args: [--load_model]
+      kwargs:
+        help: Option to load a pretrained model
+
+  opts_constraints:
+    actor_type:
+      args: [--actor_type]
+      kwargs:
+        default: unconstrained
+        help: Which actor to use. Can be either "unconstrained", "constrained". Has effect if TD3 policy is used.
+        choices: ["unconstrained", "ContraintNet"]
+    polys_convex_polys_v_n:
+      args: [--polys_convex_polys_v_n]
+      kwargs:
+        help: Specify the number of vertices for each convex polytope. Concat for all convex polytopes within one output part and for all output parts.
+        nargs: +
+    polys_convex_polys_v_dim:
+      args: [--polys_convex_polys_v_dim]
+      kwargs:
+        help: Specify the number of dimensions for each convex polytope. Concat for all convex polytopes within one output part and for all output parts. Should be a list with the same length as polys_convex_polys_v_n.
+        nargs: +
+    polys_output_parts:
+      args: [--polys_output_parts]
+      kwargs:
+        help: Specify the number of convex polytopes for each output part. Should be a list with same length as polys_convex_polys_v_n.
+        nargs: +
+    constraints_upper:
+      args: [--constraints_upper]
+      kwargs:
+        default: ""
+        help: Upper constraints. e.g. no_crash
+    constraints_lower:
+      args: [--constraints_lower]
+      kwargs:
+        default: ""
+        help: Lower constraints. Can be combination of iso and no_backwards. e.g. iso+no_backwards
+    cstr_no_backwards_jerk:
+      args: [--cstr_no_backwards_jerk]
+      kwargs:
+        help: Absolute value of maximum jerk allowed by vehicle in m/s^3 to prevent vehicle from going backwards
+        type: float
+    cstr_no_crash_tg_min:
+      args: [--cstr_no_crash_tg_min]
+      kwargs:
+        help: Lowest allowed timegap for no crash constraint in s
+        type: float
+    cstr_no_crash_a_min:
+      args: [--cstr_no_crash_a_min]
+      kwargs:
+        help: Lowest allowed acceleration by car (negative value) for no crash constraint in m/s^2
+        type: float
+    cstr_no_crash_jerk:
+      args: [--cstr_no_crash_jerk]
+      kwargs:
+        help: Absolute value of maximum jerk for no crash constraint in m/s^3
+        type: float
+
+  opts_algorithm:
+    discount:
+      args: [--discount]
+      kwargs:
+        help: Discount factor
+        type: float
+        default: 0.99
+    tau:
+      args: [--tau]
+      kwargs:
+        help: Factor for soft update of networks
+        type: float
+        default: 0.005
+    expl_noise:
+      args: [--expl_noise]
+      kwargs:
+        help: Standard deviation of exploration noise = expl_noise * max_action
+        type: float
+        default: 0.1
+    neurons:
+      args: [--neurons]
+      kwargs:
+        help: Number of neurons per layer in actor and critic
+        type: int
+        default: 256
+    batch_size:
+      args: [--batch_size]
+      kwargs:
+        help: Batchsize of training samples
+        type: int
+        default: 256
+    replaybuffer_size:
+      args: [--replaybuffer_size]
+      kwargs:
+        help: Size of queue implementing the experience replay buffer
+        type: int
+        default: 1_000_000
+
+  opts_algorithm_TD3:
+    policy_noise:
+      args: [--policy_noise]
+      kwargs:
+        help: Standard deviation of noise which is added to actions during training
+        type: float
+        default: 0.2
+    noise_clip:
+      args: [--noise_clip]
+      kwargs:
+        help: Clip training noise
+        type: float
+        default: 0.5
+    policy_freq:
+      args: [--policy_freq]
+      kwargs:
+        help: Update actor every N critic updates.
+        type: int
+        default: 2
+
+  opts_render:
+    render:
+      args: [--render]
+      kwargs:
+        action: store_true
+        help: Whether rendering of completed episodes is enabled or not
+    render_min_interval:
+      args: [--render_min_interval]
+      kwargs:
+        default: 1000
+        help: An episode is rendered if atleast render_min_interval training steps have passed since last render. Limits the number of total renders
+        type: int
+    plot_variables:
+      args: [--plot_variables]
+      kwargs:
+        nargs: +
+        help: Which variables to plot. Possible values are all members of the state dict in AccFocEnv.py. Multiple variables can be plotted in one subplot by joining them with a + (e.g. a_ego+a_tar).
+    plot_titles:
+      args: [--plot_titles]
+      kwargs:
+        nargs: +
+        help: Titles of the suplots specified by plot_variables. Latex code can be used, but must be encapsulated in quotes.
+    plot_grid:
+      args: [--plot_grid]
+      kwargs:
+        help: Whether to use a grid in the plots.
+        action: store_true 
+
+  opts_results:
+    save_model:
+      args: [--save_model]
+      kwargs:
+        action: store_true
+        help: Whether to store the trained model or not

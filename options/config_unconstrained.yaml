@@ -1,0 +1,73 @@
+options:
+  opts_general:
+    num_threads: 2
+    experiment_id: 0
+    seed: 0
+    comment: Unconstrained FOC.
+
+  opts_environment:
+    env: AccFocEnv-v0
+    vehicle_a_min: -4.5
+    vehicle_a_max: 3.0
+    env_dt: 0.1
+    sim_dt: 0.1
+    env_stop_time: 300
+    vehicle_model: Simple
+    traffic_scenario: RampsAndHold
+    observations: [v_ego, a_ego, x_rel, v_rel, a_rel]
+    reward_function: CACC Paper
+    reward_control_weight: 2
+    reward_control_jerk_weight: 0.5
+    desired_headway: 2.0
+    stop_n_go_distance: 3.2
+    stop_n_go_velocity: 3.3333
+
+  opts_traffic_scenario:
+    traffic_scenario_vehicle_time_constant: 1.0
+    traffic_scenario_start_ideal: False
+    RampsAndHold_random: [1, 10, 20, 0.75]
+    cut_in_cut_out_random: [0.0008333, 1, 7, 6]
+
+  opts_training:
+    normalize_data: True
+    policy: 'TD3'
+    max_timesteps: 1_000_000
+    start_timesteps: 10_000
+    eval_freq: 5_000
+    evaluation_episodes: 10
+    load_model: ''
+
+  opts_constraints:
+    actor_type: unconstrained
+    polys_convex_polys_v_n: [2]
+    polys_convex_polys_v_dim: [1]
+    polys_output_parts: [1]
+    constraints_upper: no_crash
+    constraints_lower: iso+no_backwards
+    cstr_no_backwards_jerk: 3.5
+    cstr_no_crash_tg_min: 1.5
+    cstr_no_crash_a_min: -2
+    cstr_no_crash_jerk: 0.5
+
+  opts_algorithm:
+    discount: 0.99
+    tau: 0.005
+    expl_noise: 0.1
+    neurons: 256
+    batch_size: 256
+    replaybuffer_size: 1_000_000
+
+  opts_algorithm_TD3:
+    policy_noise: 0.2
+    noise_clip: 0.5
+    policy_freq: 2
+
+  opts_render:
+    render: False
+    render_min_interval: 1000
+    plot_variables: [a_ego+a_tar, v_ego+v_tar, x_rel+d_safe, Hw, reward]
+    plot_titles: ["Acceleration in $m/s^{2}$", "Velocity in $m/s$", "Distance in $m$", "Time gap in $s$", Reward]
+    plot_grid: True
+
+  opts_results:
+    save_model: True

@@ -1,0 +1,8 @@
+# VS Code
+.vscode/*
+.history/
+
+# Python
+*.pyc
+*.pyo
+__pycache__/
