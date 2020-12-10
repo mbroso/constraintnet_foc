@@ -1,6 +1,6 @@
-# *ConstraintNet*: Learning a follow object controller with deep reinforcement learning under safety constraints
+# ConstraintNet: Learning a follow object controller with deep reinforcement learning under safety constraints
 
-This repository implements the reinforcement learning-based follow object controller (FOC) with safety constraints presented in the paper "Sample-Specific Output Constraints for Neural Networks". As reinforcement learing algorithm, we use the Twin Delayed DDPG algorithm proposed in the paper [Addressing Function Approximation Error in Actor-Critic Methos] (https://arxiv.org/abs/1802.09477)[1] and build on code from [github.com/sfujim/TD3](https://github.com/sfujim/TD3).
+This repository implements the reinforcement learning-based follow object controller (FOC) with safety constraints presented in the paper "Sample-Specific Output Constraints for Neural Networks". As reinforcement learing algorithm, we use the Twin Delayed DDPG algorithm proposed in the paper [Addressing Function Approximation Error in Actor-Critic Methos](https://arxiv.org/abs/1802.09477)[1] and build on code from [github.com/sfujim/TD3](https://github.com/sfujim/TD3).
 
 ## Requirements
 
