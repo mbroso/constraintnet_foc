@@ -86,4 +86,4 @@ The table below shows a comparison of the learned behavior of unconstrained FOC 
 | Unconstrained  | 5.25 |   3.7 +- 4.6 %         | 0.75 +- 0.04 | **0.53 +- 0.05** | 1.6 +- 0.2 |
 | Clipped unconstrained  | 0.3 |   **0.0 +- 0.0%**         |  0.76 +- 0.02  | 1.04 +- 0.87 |  3.7 +- 2.7  |
 
-[1] Fujimoto et. al. 2018. Addressing Function Approximation Error in Actor-Critic Methos. 35th International Conference on Machine Learning (ICML). arxiv: https://arxiv.org/abs/1802.09477.
+[1] Scott Fujimoto, Herke Van Hoof, David Meger. 2018. Addressing Function Approximation Error in Actor-Critic Methos. 35th International Conference on Machine Learning (ICML). arxiv: https://arxiv.org/abs/1802.09477.
