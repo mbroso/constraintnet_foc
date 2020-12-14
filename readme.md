@@ -50,7 +50,7 @@ A plot *./foc_crash_rate_comparison.png* will be generated.
 python eval.py --method crash_rate --exp_ids_unconstrained 0 1 2 3 4 5 --exp_ids_unconstrained_clipped 50 51 52 53 54 55 --exp_ids_ConstraintNet 100 101 102 103 104 105
 ```
 
-### Metrics of Learned Behavior
+### Metrics for Learned Behavior
 The learned FOC is evaluated and assessed using metrics. The crash rate (lower is better), safety (higher is better), discomfort (lower is better), and tracking error (lower is better) are calculated.
 
 To evaluate the unconstrained FOC for 100 episodes and calculate the metrics run:
