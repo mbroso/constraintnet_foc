@@ -1,4 +1,4 @@
-# ConstraintNet: Follow object controller with deep reinforcement learning under safety constraints
+# ConstraintNet: Follow Object Controller with Deep Reinforcement Learning under Safety Constraints
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/mbroso/constraintnet_foc/blob/master/LICENSE)
 
@@ -17,7 +17,7 @@ To activate the conda environment run:
 conda activate rl_foc
 ```
 
-## Configuration files
+## Configuration Files
 For reproducibility of the experiments, we provide option definition files and configuration files. The option definition file defines options and the configuration file sets the options. The option definition file is located in *./options/opt_def.yaml*. In the folder *./options/* we provide a configuration file for training the unconstrained FOC, the clipped unconstrained FOC, and the ConstraintNet FOC.
 
 ## Training
@@ -36,21 +36,21 @@ Training those 18 agents was done using the script *./train_agents.sh*. The pre-
 
 ## Evaluation
 
-### Reward comparison during training of unconstrained and ConstraintNet FOC
+### Reward Comparison during Training of Unconstrained and ConstraintNet FOC
 To compare the reward during training of unconstrained, clipped unconstrained and ConstraintNet FOC, specify the method *reward* and set the experiment ids for unconstrained, clipped unconstrained, and ConstraintNet FOC.
 A plot *./foc_reward_comparison.png* will be generated.
 ```eval
 python eval.py --method reward --exp_ids_unconstrained 0 1 2 3 4 5 --exp_ids_unconstrained_clipped 50 51 52 53 54 55 --exp_ids_ConstraintNet 100 101 102 103 104 105
 ```
 
-### Crash rate comparison during training of unconstrained and ConstraintNet FOC
+### Crash Rate Comparison during Training of Unconstrained and ConstraintNet FOC
 To compare the reward during training of unconstrained, clipped unconstrained and ConstraintNet FOC, specify the method *reward* and set the experiment ids for unconstrained and ConstraintNet FOC.
 A plot *./foc_crash_rate_comparison.png* will be generated.
 ```eval
 python eval.py --method crash_rate --exp_ids_unconstrained 0 1 2 3 4 5 --exp_ids_unconstrained_clipped 50 51 52 53 54 55 --exp_ids_ConstraintNet 100 101 102 103 104 105
 ```
 
-### Metrics of learned behaviour
+### Metrics of Learned Behavior
 The learned FOC is evaluated and assessed using metrics. The crash rate (lower is better), safety (higher is better), discomfort (lower is better), and tracking error (lower is better) are calculated.
 
 To evaluate the unconstrained FOC for 100 episodes and calculate the metrics run:
