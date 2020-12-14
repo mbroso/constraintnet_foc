@@ -71,13 +71,13 @@ python eval.py --method metrics --exp_ids 100 101 102 103 104 105 --episodes 100
 ```
 
 ## Results
-The plot shows the average reward during training of unconstrained, clipped unconstrained, and ConstraintNet FOC over six trials. ConstraintNet FOC converges faster and shows more stable results than unconstrained FOC. Clipped unconstrained does not converge at all. Vertical lines indicate time steps with maximum return during trainig (3.95e5 for ConstraintNet, 5.25e5 for unconstrained FOC, 0.3e5 for clipped unconstrained FOC). The clipped unconstrained FOC does not converge at all.)
+The plot shows the average reward during training of unconstrained, clipped unconstrained, and ConstraintNet FOC over six trials. ConstraintNet FOC converges faster and shows more stable results than unconstrained FOC. Clipped unconstrained FOC does not converge at all. Vertical lines indicate time steps with maximum return during training (3.95e5 for ConstraintNet, 5.25e5 for unconstrained FOC, 0.3e5 for clipped unconstrained FOC). The clipped unconstrained FOC does not converge at all.
 ![](foc_reward_comparison.png)
 
 The plot shows the average crash rate during training of unconstrained, clipped unconstrained and ConstraintNet FOC over six trials. While unconstrained FOC never learns to avoid all crashes, ConstraintNet and clipped unconstrained FOC show much safer results. However, avoiding crashes by a postprocessing step (clipping to constraints) comes at the expense of bad learning behavior.
 ![](foc_crash_rate_comparison.png)
 
-The table below shows a comparison of the learned behavior of unconstrained FOC and ConstraintNet FOC. The metrics were averages over six trained agents, which were each evaluated for 100 episodes.
+The table below shows a comparison of the learned behavior of unconstrained FOC and ConstraintNet FOC. The metrics are averaged over six trained agents, which were each evaluated for 100 episodes.
 
 | NN for policy | Time steps (1e5)            | Crash rate    | Safety        | Discomfort | Tracking error|
 | ------------------ |---------------- |---------------- | -------------- | -------------- | -------------- |
