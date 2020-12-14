@@ -22,7 +22,7 @@ For reproducibility of the experiments, we provide option definition files and c
 
 ## Training
 
-To train one agent use the train script and specify the config file (unconstrained, clipped unconstrained or ConstraintNet), a unique experiment id and a random seed:
+To train one agent use the train script and specify the config file (unconstrained, clipped unconstrained or ConstraintNet), a unique experiment ID and a random seed:
 
 ```train
 python train.py --config ./options/config_unconstrained.yaml --experiment_id 0 --seed 0
@@ -31,20 +31,20 @@ python train.py --config ./options/config_ConstraintNet.yaml --experiment_id 100
 ```
 
 ## Pre-trained Models
-Using six different random seeds, we trained six unconstrained agents (experiment ids 0, 1, 2, 3, 4 and 5), six clipped unconstrained agents (experiment ids: 50, 51, 52, 53, 54, 55) and six ConstraintNet agents (experiment ids 100, 101, 102, 103, 104 and 105).
-Training those 18 agents was done using the script *./train_agents.sh*. The pre-trained models and obtained rewards during training are stored in the *./experiments/* folder. We provide the weights after full training (10e5 time steps) and for maximum evaluation score during training (3.95e5 for ConstraintNet, 5.25e5 for unconstrained NN, and 0.3e5 for clipped unconstrained). For repeating the training, the folders within ./experiments must be deleted or other experiment ids must be chosen.
+Using six different random seeds, we trained six unconstrained agents (experiment IDs 0, 1, 2, 3, 4 and 5), six clipped unconstrained agents (experiment IDs: 50, 51, 52, 53, 54, 55) and six ConstraintNet agents (experiment IDs 100, 101, 102, 103, 104 and 105).
+Training those 18 agents was done using the script *./train_agents.sh*. The pre-trained models and obtained rewards during training are stored in the *./experiments/* folder. We provide the weights after full training (10e5 time steps) and for maximum evaluation score during training (3.95e5 for ConstraintNet, 5.25e5 for unconstrained NN, and 0.3e5 for clipped unconstrained). For repeating the training, the folders within ./experiments must be deleted or other experiment IDs must be chosen.
 
 ## Evaluation
 
 ### Reward Comparison during Training of Unconstrained and ConstraintNet FOC
-To compare the reward during training of unconstrained, clipped unconstrained and ConstraintNet FOC, specify the method *reward* and set the experiment ids for unconstrained, clipped unconstrained, and ConstraintNet FOC.
+To compare the reward during training of unconstrained, clipped unconstrained and ConstraintNet FOC, specify the method *reward* and set the experiment IDs for unconstrained, clipped unconstrained, and ConstraintNet FOC.
 A plot *./foc_reward_comparison.png* will be generated.
 ```eval
 python eval.py --method reward --exp_ids_unconstrained 0 1 2 3 4 5 --exp_ids_unconstrained_clipped 50 51 52 53 54 55 --exp_ids_ConstraintNet 100 101 102 103 104 105
 ```
 
 ### Crash Rate Comparison during Training of Unconstrained and ConstraintNet FOC
-To compare the reward during training of unconstrained, clipped unconstrained and ConstraintNet FOC, specify the method *reward* and set the experiment ids for unconstrained and ConstraintNet FOC.
+To compare the reward during training of unconstrained, clipped unconstrained and ConstraintNet FOC, specify the method *reward* and set the experiment IDs for unconstrained and ConstraintNet FOC.
 A plot *./foc_crash_rate_comparison.png* will be generated.
 ```eval
 python eval.py --method crash_rate --exp_ids_unconstrained 0 1 2 3 4 5 --exp_ids_unconstrained_clipped 50 51 52 53 54 55 --exp_ids_ConstraintNet 100 101 102 103 104 105
